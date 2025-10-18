@@ -166,7 +166,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown("### Classification Report (Test Data)")
 
-    # Create a small DataFrame for readability
+    # Create a DataFrame for readability
     report_data = {
         "Class": ["0 (No Recurrence)", "1 (Recurrence)", "Accuracy", "Macro Avg", "Weighted Avg"],
         "Precision": [0.98, 1.00, "-", 0.99, 0.99],
