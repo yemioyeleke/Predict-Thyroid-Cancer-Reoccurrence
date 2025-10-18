@@ -1,74 +1,71 @@
-🩺 Project Overview
+# 🩺 Thyroid Cancer Recurrence Prediction
 
-Thyroid cancer recurrence is a major clinical concern that affects post-treatment management and patient survival. This project applies data science and machine learning to analyze clinical and pathological data to predict the probability of recurrence in thyroid cancer patients.
+## 🩸 Project Overview
 
-Some ML models were trained; however, XGBoost achieved superior performance.
+Thyroid cancer recurrence is a major clinical concern that affects post-treatment management and patient survival.  
+This project applies **data science and machine learning** to analyze clinical and pathological data to **predict the probability of recurrence** in thyroid cancer patients.
 
-🎯 Objectives
+Several ML models were trained; however, **XGBoost achieved superior performance**.
 
-To develop a predictive model capable of estimating thyroid cancer recurrence risk.
+---
 
-To compare the performance of Random Forest and XGBoost classifiers.
+## 🎯 Objectives
 
-To visualize key metrics such as confusion matrix, ROC curve, and feature importance.
+- Develop a predictive model capable of estimating thyroid cancer recurrence risk  
+- Compare the performance of **Random Forest** and **XGBoost** classifiers  
+- Visualize key metrics such as **confusion matrix**, **ROC curve**, and **feature importance**  
+- Deploy the final model as an **interactive web application** using **Streamlit**
 
-To deploy the final model as an interactive web application using Streamlit.
+---
 
-🧩 Key Features
+## 🧩 Key Features
 
-Data preprocessing and cleaning
+- Data preprocessing and cleaning  
+- Handling of categorical variables via custom one-hot encoding  
+- GridSearchCV for hyperparameter tuning  
+- Cross-validation for robust model performance evaluation  
+- Model persistence with pickle (`.pkl`)  
+- Streamlit-based web interface for easy clinical interpretation  
+- Probability-based predictions for clinical decision support  
 
-Handling of categorical variables via custom one-hot encoding
+---
 
-GridSearchCV for hyperparameter tuning
+## ⚙️ Model Development Workflow
 
-Cross-validation for robust model performance evaluation
-
-Model persistence with pickle (.pkl)
-
-Streamlit-based web interface for easy clinical interpretation
-
-Probability-based predictions for clinical decision support
-
-⚙️ Model Development Workflow
-
-Data Preparation
+### 1. Data Preparation
 
 Split into training and testing sets:
-
+```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+## 🧩 2. Feature Engineering
 
-Feature Engineering
+Custom **one-hot encoding** was applied for categorical columns such as:
 
-Custom one-hot encoding for categorical columns like:
+- Thyroid Function  
+- Physical Examination  
+- Adenopathy  
+- Pathology  
+- Risk, Stage, T/N/M classification  
 
-Thyroid Function
+Numerical features such as **Age**, **Tumor Size**, and **Lymph Nodes** were retained for model training.
 
-Physical Examination
+---
 
-Adenopathy
+## ⚙️ 3. Model Training
 
-Pathology
+**Hyperparameter tuning** was performed using `GridSearchCV`:
 
-Risk, Stage, T/N/M classification
-
-Numerical features such as Age, Tumor Size, and Lymph Nodes are retained.
-
-Model Training
-
-Hyperparameter tuning using:
-
+```python
 GridSearchCV(RF_model, param_grid, cv=5, scoring='accuracy')
-
-
 Best parameters achieved:
 
+python
+Copy code
 {'max_depth': 10, 'min_samples_split': 2, 'n_estimators': 100}
 Best Score: 0.97
-
-
-Evaluation Metrics
+📏 4. Evaluation Metrics
+Model performance was assessed using:
 
 Confusion Matrix (visualized with seaborn heatmap)
 
@@ -78,87 +75,31 @@ ROC-AUC Curve
 
 Cross-validation mean accuracy
 
-Model Serialization
+💾 5. Model Serialization
+The trained XGBoost model was saved using pickle for later deployment:
 
+python
+Copy code
 with open('xgb_model.pkl', 'wb') as f:
     pickle.dump(xgb_model, f)
-
 🌐 Web App (Streamlit)
+The app provides a user-friendly interface for clinicians to input patient data and receive recurrence probability predictions.
 
-The app provides a user-friendly interface for clinicians to input patient data and get recurrence probability predictions.
-
-App Features:
-
+🧠 App Features
 Interactive input fields for clinical parameters
 
 Real-time prediction output
 
 Probability-based risk assessment (Low vs High Risk)
 
-Deployed locally via Streamlit
+Deployed locally using Streamlit
 
-Run the App:
-
+▶️ Run the App
+bash
+Copy code
 cd app
 streamlit run app.py
-
-
-Example Output:
-
-🩺 Predicted Probability of Recurrence: 0.72
-⚠️ High Risk of Recurrence
-
-📦 Installation Guide
-1. Clone Repository
-git clone https://github.com/<yourusername>/thyroid-recurrence-prediction.git
-cd thyroid-recurrence-prediction/app
-
-2. Create a Virtual Environment
-python -m venv venv
-source venv/bin/activate       # For Mac/Linux
-venv\Scripts\activate          # For Windows
-
-3. Install Dependencies
-pip install -r requirements.txt
-
-🧪 Requirements
-
-Example requirements.txt:
-
-streamlit
-pandas
-numpy
-scikit-learn
-xgboost
-matplotlib
-seaborn
-pickle-mixin
-
-📊 Results Summary
-Metric	Random Forest	XGBoost
-Accuracy	0.97	0.98
-AUC Score	0.95	0.97
-Cross-Val Mean	0.96	0.97
-
-XGBoost showed higher accuracy and generalization capacity.
-
-🧬 Clinical Relevance
-
-This project supports data-driven oncology by providing early warning of recurrence risks.
-It does not replace medical judgment but serves as an assistive tool for:
-
-Treatment planning
-
-Patient follow-up prioritization
-
-Research and educational purposes
-
-
-🛡️ Disclaimer
-
-This model is for research and educational purposes only.
-Predictions should not be used as a standalone diagnostic tool.
-
-📜 License
-
-This project is distributed under the MIT License — feel free to use and modify with credit.
+📊 Example Output
+yaml
+Copy code
+🩺 Predicted Probability of Recurrence: 0.72 ⚠️ High Risk of Recurrence
