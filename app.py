@@ -165,21 +165,16 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### Classification Report (Test Data)")
-    st.text("""
-              precision    recall  f1-score   support
-           0       0.98      1.00      0.99        54
-           1       1.00      0.95      0.97        19
-    accuracy                           0.99        73
-   macro avg       0.99      0.97      0.98        73
-weighted avg       0.99      0.99      0.99        73
-ROC-AUC for XGBoost: 0.97
-    """)
 
-with col2:
-    st.markdown("### Clinical Interpretation")
-    st.write("""
-    - **Precision (1.00)**: When the model predicts recurrence, it’s almost always correct.
-    - **Recall (0.95)**: It correctly identifies 95% of actual recurrence cases.
-    - **Accuracy (0.99)**: Overall, it classifies patients accurately 99% of the time.
-    - **ROC-AUC (0.97)**: Excellent discrimination between recurrent and non-recurrent cases.
-    """)
+    # Create a DataFrame for readability
+    report_data = {
+        "Class": ["0 (No Recurrence)", "1 (Recurrence)", "Accuracy", "Macro Avg", "Weighted Avg"],
+        "Precision": [0.98, 1.00, "-", 0.99, 0.99],
+        "Recall": [1.00, 0.95, "-", 0.97, 0.99],
+        "F1-Score": [0.99, 0.97, 0.99, 0.98, 0.99],
+        "Support": [54, 19, 73, 73, 73]
+    }
+    df_report = pd.DataFrame(report_data)
+    st.dataframe(df_report.style.format(precision=2), use_container_width=True)
+
+    st.markdown("**ROC-AUC for XGBoost:** `0.97`")
