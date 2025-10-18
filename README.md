@@ -12,7 +12,7 @@ Several ML models were trained; however, **XGBoost achieved superior performance
 ## 🎯 Objectives
 
 - Develop a predictive model capable of estimating thyroid cancer recurrence risk  
-- Compare the performance of **Random Forest** and **XGBoost** classifiers  
+- Compare the performance of various **classifiers**   
 - Visualize key metrics such as **confusion matrix**, **ROC curve**, and **feature importance**  
 - Deploy the final model as an **interactive web application** using **Streamlit**
 
@@ -37,6 +37,7 @@ Several ML models were trained; however, **XGBoost achieved superior performance
 Split into training and testing sets:
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
 
 ## 🧩 2. Feature Engineering
 
@@ -64,42 +65,43 @@ python
 Copy code
 {'max_depth': 10, 'min_samples_split': 2, 'n_estimators': 100}
 Best Score: 0.97
-📏 4. Evaluation Metrics
+
+
+## 📏 4. Evaluation Metrics
+
 Model performance was assessed using:
 
-Confusion Matrix (visualized with seaborn heatmap)
+- **Confusion Matrix** (visualized with seaborn heatmap)  
+- **Accuracy Score**  
+- **ROC-AUC Curve**  
+- **Cross-validation Mean Accuracy**  
 
-Accuracy Score
+---
 
-ROC-AUC Curve
+## 💾 5. Model Serialization
 
-Cross-validation mean accuracy
+The trained **XGBoost model** was saved using `pickle` for later deployment:
 
-💾 5. Model Serialization
-The trained XGBoost model was saved using pickle for later deployment:
-
-python
-Copy code
+```python
 with open('xgb_model.pkl', 'wb') as f:
     pickle.dump(xgb_model, f)
+
+
 🌐 Web App (Streamlit)
+
 The app provides a user-friendly interface for clinicians to input patient data and receive recurrence probability predictions.
 
 🧠 App Features
-Interactive input fields for clinical parameters
 
-Real-time prediction output
+- Interactive input fields for clinical parameters
 
-Probability-based risk assessment (Low vs High Risk)
+- Real-time prediction output
 
-Deployed locally using Streamlit
+- Probability-based risk assessment (Low vs High Risk)
+
+- Deployed locally using Streamlit
+
 
 ▶️ Run the App
-bash
-Copy code
 cd app
 streamlit run app.py
-📊 Example Output
-yaml
-Copy code
-🩺 Predicted Probability of Recurrence: 0.72 ⚠️ High Risk of Recurrence
