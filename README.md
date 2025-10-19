@@ -35,7 +35,6 @@ Several ML models were trained; however, **XGBoost achieved superior performance
 ### 1. Data Preparation
 
 Split into training and testing sets:
-```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 
@@ -49,20 +48,12 @@ Custom **one-hot encoding** was applied for categorical columns such as:
 - Pathology  
 - Risk, Stage, T/N/M classification  
 
-Numerical features such as **Age**, **Tumor Size**, and **Lymph Nodes** were retained for model training.
-
 ---
 
 ## ⚙️ 3. Model Training
 
 **Hyperparameter tuning** was performed using `GridSearchCV`:
-
-```python
-GridSearchCV(RF_model, param_grid, cv=5, scoring='accuracy')
-Best parameters achieved:
-
-python
-Copy code
+Best Params: 
 {'max_depth': 10, 'min_samples_split': 2, 'n_estimators': 100}
 Best Score: 0.97
 
@@ -82,7 +73,6 @@ Model performance was assessed using:
 
 The trained **XGBoost model** was saved using `pickle` for later deployment:
 
-```python
 with open('xgb_model.pkl', 'wb') as f:
     pickle.dump(xgb_model, f)
 
@@ -99,9 +89,9 @@ The app provides a user-friendly interface for clinicians to input patient data 
 
 - Probability-based risk assessment (Low vs High Risk)
 
-- Deployed locally using Streamlit
+- Deployed on streamlit cloud
 
 
-▶️ Run the App
-cd app
-streamlit run app.py
+# 🩺 Run App
+
+The deployed thyroid cancer recurrence app can be accessed via: https://predict-thyroid-cancer-reoccurrence.streamlit.app/
